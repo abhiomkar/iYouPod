@@ -48,5 +48,14 @@ More to come...
 
 Usage
 -----
-Yet to update...
 
+1. Download the Source code
+	wget http://github.com/abhiomkar/iYouPod/raw/master/iyoupod.py
+
+2. Give the permission to execute
+	chmod +x iyoupod.py
+
+3. Run the code
+	./iyoupod.py
+
+4. That's it! Your Videos should be downloaded to `~/Movies/Youtube2iPod` (Mac) , `~/Videos/Youtube2iPod` (Linux, FreeBSD) or to your `My Documents` (Windows) folder.
