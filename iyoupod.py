@@ -30,6 +30,7 @@ yt_fav_uri = "http://gdata.youtube.com/feeds/api/users/abhiomkar/favorites?max-r
 
 # Find out which operating system?
 if platform.system() == 'Darwin':
+	import appscript
 	rel_path = os.path.expanduser('~/Movies/Youtube2iPod/')
 elif platform.system() == 'Windows':
 	rel_path = os.path.expanduser('~/Youtube2iPod/')
@@ -113,6 +114,13 @@ def downloadVideo(yt_watchurl):
 	f.write(download)
 	f.close()
 	print "[Downloaded]"
+	return filepath
+	
+def export2iTunes(vid_filename):
+	# I add downloaded Youtube videos to iTunes Movie Library as and when they are downloaded
+	if platform.system() == 'Darwin':
+		# If it's Mac OS X
+		appscript.app(u'iTunes').add(appscript.mactypes.File(vid_filename))
 
 def main():
 	print "Hello! what's your Youtube username?"
@@ -154,7 +162,7 @@ def main():
 
 	# Downlaod These videos to current directory
 	print
-	print ">>> Now Downloading " + str(len(yt_videos.values())) + " Videos. This may take few minutes."
+	print ">>> Now Downloading " + str(len(yt_videos.values())) + " Videos. This may take few minutes.\n## I Export these videos to your iTunes Movie Library"
 	
 	try:
 		os.makedirs(rel_path)
@@ -167,9 +175,9 @@ def main():
 			raise
 			
 	for yt_watchurl in yt_videos.values():
-			downloadVideo(yt_watchurl)
-	
-	print 'Completed!'
+			vid_filename = downloadVideo(yt_watchurl)
+			if vid_filename:
+				export2iTunes(vid_filename)	
 	
 if __name__ == "__main__":
 	main()	
